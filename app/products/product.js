@@ -11,7 +11,9 @@ mainApp.factory('ProductFactory', ['$resource',
 
 mainApp.factory('ProductListFactory', ['$resource',
     function ($resource) {
-        return $resource(API_ENGINE_URL + 'category/:id/items', {}, {
+        return $resource(API_ENGINE_URL + 'category/:id/items',
+        {}, 
+        {
             get: {method: 'GET', params: {category_id: '@category_id', id: '@id'},isArray:true},
             save: {method: 'GET', isArray: true}
             
