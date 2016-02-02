@@ -12,8 +12,21 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                     controller: 'userCtrl'
                 }
         );
+
+        $routeProvider.when('/address',
+                {
+                    templateUrl: 'app/users/address-partial.html',
+                    controller: 'addressCtrl'
+                }
+        );
+        $routeProvider.when('/address/:id/edit',
+                {
+                    templateUrl: 'app/users/address-partial.html',
+                    controller: 'addressCtrl'
+                }
+        );
     }]);
-mainApp.controller('userCtrl', ['$scope', 'UserFactory','$routeParams', function ($scope, UserFactory,$routeParams) {
+mainApp.controller('userCtrl', ['$scope', 'UserFactory','$routeParams',, function ($scope, UserFactory,$routeParams) {
         $scope.user = {};
         $scope.get = function () {
             $scope.errorMessage = "";
@@ -66,6 +79,66 @@ mainApp.controller('userCtrl', ['$scope', 'UserFactory','$routeParams', function
         
          $scope.$watch('$viewContentLoaded', function(){
             $scope.get();
+        });
+
+    }
+]);
+
+mainApp.controller('addressCtrl', ['$scope', 'AddressFactory','$routeParams', function ($scope, AddressFactory,$routeParams) {
+        $scope.address = {};
+        $scope.get = function () {
+            $scope.errorMessage = "";
+            var promise = AddressFactory.get({id: $routeParams.id}).$promise;
+            promise.then(function (result) {
+                if (result.error) {
+                    $scope.errorMessage = result.error;
+                } else {
+                    $scope.errorMessage = "";
+                    $scope.address = result;
+                }
+
+            });
+        };
+        $scope.save = function () {
+            $scope.errorMessage = "";
+            if ($routeParams.id) {
+                $scope.address.id = $routeParams.id;
+                var promise = AddressFactory.update($scope.address).$promise;
+
+            } else {
+                var promise = AddressFactory.save($scope.address).$promise;
+
+            }
+            promise.then(function (result) {
+                if (result.error) {
+                    $scope.errorMessage = result.error;
+                } else {
+                    $scope.errorMessage = "";
+                    $scope.address = result;
+                }
+
+            });
+        };
+        
+        $scope.update = function () {
+            $scope.errorMessage = "";
+            console.log($scope.address);
+            var promise = AddressFactory.update($scope.address).$promise;
+            promise.then(function (result) {
+                if (result.error) {
+                    $scope.errorMessage = result.error;
+                } else {
+                    $scope.errorMessage = "";
+                }
+
+            });
+        };
+        
+        $scope.$watch('$viewContentLoaded', function(){
+            if ($routeParams.id) {
+                $scope.get();
+            }
+            
         });
 
     }

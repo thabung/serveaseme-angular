@@ -1,0 +1,13 @@
+<div>
+    <form name="addressForm" ng-submit="save()">
+        <input ng-model="address.full_name" type="text" placeholder="Name" name="full_name" >
+        <textarea  ng-model="address.address" name="address" placeholder="Address"></textarea>
+        <input ng-model="address.area" type="text" placeholder="Area" name="area" >
+        <input ng-model="address.mobile_number" type="text" placeholder="Mobile" name="mobile_number" >
+        <input ng-model="address.landmark" type="text" placeholder="Landmark" name="landmark" >
+        <input ng-model="address.city" type="hidden" placeholder="Pin number" name="city" value="Guwahati">
+        <input ng-model="address.state" type="hidden" placeholder="Pin number" name="state" value="Assam" >
+        <input type="submit" value="Save">
+    </form>
+
+</div>
