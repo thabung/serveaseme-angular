@@ -1,0 +1,43 @@
+<form name='signupform' id="user_login" ng-submit="submit(signupform.$valid);" novalidate>
+
+    <div>
+        <input required placeholder="First name" type='text' name='first_name' ng-model="user.first_name" >
+        <span class="help-block"
+              ng-show="signupform.first_name.$invalid && signupform.first_name.$dirty">
+            Firstname is required
+        </span>
+    </div>
+    <div>
+        <input required placeholder="Last name"  type='text' name='last_name' ng-model="user.last_name" >
+        <span class="help-block"
+              ng-show="signupform.last_name.$invalid && signupform.last_name.$dirty">
+            Last is required
+        </span>
+    </div>
+    <div>
+        <input required placeholder="Email" name="email" type='email' ng-model="user.email" >
+        <span class="help-block"
+              ng-show="signupform.email.$invalid && signupform.email.$dirty">
+            Email is required
+        </span>
+    </div>
+    <div>
+        <input required placeholder="mobile number" name="mobile_number" type='text' ng-model="user.mobile_number" >
+        <span class="help-block"
+              ng-show="signupform.mobile_number.$invalid && signupform.mobile_number.$dirty">
+            Mobile number is required
+        </span>
+    </div>
+    <div>
+        <input required placeholder="password" type='password' ng-model='user.password' >
+        <span class="help-block"
+              ng-show="signupform.password.$invalid && signupform.password.$dirty">
+            Password is required
+        </span>
+    </div>
+    <div>
+        <input required placeholder="Reeneter password" type='password' ng-model='user.reenter_password' >
+    </div>
+    <input ng-disabled="signupform.$invalid" type='submit' >
+    <p id='errorMsg'>{{errorMessage}}</p>
+</form>

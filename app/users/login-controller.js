@@ -1,9 +1,17 @@
-mainApp.controller('loginCtrl', [ '$scope', 'AuthFactory', function ($scope, Auth) {
-  //submit
-    $scope.login = function (email,password) {
-    
-    Auth.login()
+mainApp.config(['$routeProvider', function ($routeProvider) {
+        
+        $routeProvider.when('/login',
+                {
+                    templateUrl: 'app/users/login-partial.html',
+                    controller: 'loginCtrl'
+                }
+        );
+}]);
+mainApp.controller('loginCtrl', ['$scope', 'AuthFactory', function ($scope, Auth) {
+        $scope.user = {};
+        $scope.submit = function() {
+          Auth.login($scope.user.email,$scope.user.password);
+        };
 
-    Auth.setUser(user); //Update the state of the user in the app
-  };
-}])
+    }
+]);
