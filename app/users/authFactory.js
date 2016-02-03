@@ -5,6 +5,10 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
             setAuthorizationHeader: function () {
                 HEADERS = {Authorization: "Bearer " + $rootScope.user.auth_token};
             },
+            resetAuthorizationHeader: function() {
+                HEADERS = null;
+            }
+            ,
             setUser: function (aUser) {
 
                 $rootScope.user = aUser;
@@ -33,12 +37,15 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
             },
             logout: function () {
                 $rootScope.user = undefined;
+                this.resetAuthorizationHeader();
+                $cookies.remove("user");
+                
             },
             isLoggedIn: function () {
                 console.log(this.getUser());
                 return(this.getUser()) ? true : false;
             },
-            login: function (username, password) {
+            login: function (username, password,errorCallback) {
                 var self = this;
                 console.log(username + password);
                 var Login = $resource(APP_URL.login, {},
@@ -53,13 +60,13 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
                         console.log(result.token);
                         self.setUser({email: username, auth_token: result.token});
 
-                    }
+                    } 
+                    
 
+                },function(error) {
+                    console.log(error);
+                    errorCallback(error) 
                 });
-
-
-
-
             }
         }
     }]);

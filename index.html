@@ -21,11 +21,16 @@
         <script src="app/users/userFactory.js"></script>
         <script src="app/users/addressFactory.js"></script>
         <script src="app/users/user-controller.js"></script>
+        <script src="app/httpinterceptor.js"></script>
+
 
 
 
     </head>
     <body >
+        <header ng-controller="loginCtrl">
+            <login></login>
+        </header>
         <div ng-view>
             Here goes content
         </div>

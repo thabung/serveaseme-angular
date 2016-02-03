@@ -1,21 +1,29 @@
 var mainApp = angular.module('mainApp', ['ngRoute', 'ngResource', 'ngCookies','ngMessages']);
 var HEADERS = {};
+var isPublicRoute = function(path) {
+    publicPathArray = ['/signup','/login']; 
+    if (publicPathArray.indexOf(path) > -1) {
+        return true;
+    } else {
+        return false;
+    }
+};
 mainApp.config(['$routeProvider', '$sceProvider', function ($routeProvider, $sceProvider) {
-        // check if the user is logged in
-        // if no show the login form
-
-
     }]);
 
 mainApp.run(['$rootScope', '$location', 'AuthFactory', function ($rootScope, $location, Auth) {
         $rootScope.$on('$routeChangeStart', function (event) {
-            console.log("--------------------------------");
+            
             Auth.syncCookieUser();
-            if (!Auth.isLoggedIn()) {
+            console.log($location.path());
+            if (!Auth.isLoggedIn() && !isPublicRoute($location.path())) {
                 console.log('DENY');
                 $location.path('/login');
             }
             else {
+                if (Auth.isLoggedIn() && $location.path() == '/login') {
+                    $location.path('/');
+                } 
                 console.log('ALLOW');
                 
             }

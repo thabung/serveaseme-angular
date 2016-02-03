@@ -12,6 +12,12 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                     controller: 'productController'
                 }
         );
+        $routeProvider.when('/',
+                {
+                    templateUrl: 'app/products/all-products.html',
+                    controller: 'productController'
+                }
+        );
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
 mainApp.controller('productController', ['$scope', 'ProductFactory', 'ProductListFactory',

@@ -74,10 +74,7 @@ mainApp.controller('userCtrl', ['$scope', 'UserFactory','$routeParams',, functio
 
             });
         };
-        
-        
-        
-         $scope.$watch('$viewContentLoaded', function(){
+        $scope.$watch('$viewContentLoaded', function(){
             $scope.get();
         });
 
