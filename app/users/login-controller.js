@@ -7,7 +7,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                 }
         );
     }]);
-mainApp.controller('loginCtrl', ['$scope', 'AuthFactory', function ($scope, Auth) {
+mainApp.controller('loginCtrl', ['$scope', 'AuthFactory','$location', function ($scope, Auth, $location) {
         $scope.user = {};
         $scope.submit = function () {
             Auth.login($scope.user.email, $scope.user.password, function (err) {
@@ -16,8 +16,9 @@ mainApp.controller('loginCtrl', ['$scope', 'AuthFactory', function ($scope, Auth
                         $scope.errorMessage = "Login failed";
                     }
                 } else {
-                    $rootScope.previous_url = "";
-                    $rootScope.previous_url = "/";
+                   // $rootScope.previous_url = "";
+                   // $rootScope.previous_url = "/";
+                   $location.path("/");
                 } 
 
             });
@@ -25,6 +26,7 @@ mainApp.controller('loginCtrl', ['$scope', 'AuthFactory', function ($scope, Auth
 
         $scope.logout = function () {
             Auth.logout();
+            $location.path("/login");
         }
 
 
@@ -32,6 +34,7 @@ mainApp.controller('loginCtrl', ['$scope', 'AuthFactory', function ($scope, Auth
 ]).directive('login', function () {
     return {
         restrict: 'E',
-        template: '<div>Name: {{$root.user.email}} <a href="#" ng-click="logout()">Logout</a></div>'
-    };
+        template:'<div ng-show="$root.user.email"  class="dropdown nav navbar-nav navbar-right"\n\
+     role="menu" aria-labelledby="menu1">\n\
+<a data-target="#" href="" data-toggle="dropdown" class="dropdown-toggle">{{$root.user.email}}<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="#/orders">Orders</a></li><li><a href="#">My info</a></li><li><a href="" ng-click="logout();">Logout</a></li></ul></div>'    };
 });

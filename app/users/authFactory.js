@@ -39,13 +39,14 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
                 $rootScope.user = undefined;
                 this.resetAuthorizationHeader();
                 $cookies.remove("user");
+                console.log("LOGGED OUT");
                 
             },
             isLoggedIn: function () {
                 console.log(this.getUser());
                 return(this.getUser()) ? true : false;
             },
-            login: function (username, password,errorCallback) {
+            login: function (username, password,callback) {
                 var self = this;
                 console.log(username + password);
                 var Login = $resource(APP_URL.login, {},
@@ -59,13 +60,13 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
                     if (result.token) {
                         console.log(result.token);
                         self.setUser({email: username, auth_token: result.token});
-
+                        callback(null);
                     } 
                     
 
                 },function(error) {
                     console.log(error);
-                    errorCallback(error) 
+                    callback(error) 
                 });
             }
         }

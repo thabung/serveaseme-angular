@@ -3,6 +3,7 @@ mainApp.factory('ProductFactory', ['$resource',
     function ($resource) {
         return $resource(API_ENGINE_URL + 'items/:itemId', {}, {
             get: {method: 'GET', headers:HEADERS,params: {itemId: '@itemId'}},
+            getAllCategories: {method: 'GET', headers:HEADERS,url:APP_URL.get_all_category,isArray:true},
             save: {method: 'GET', isArray: true}
 
             //tree: {method:'GET', isArray:true,url:API_ENGINE_URL+"category/tree"}

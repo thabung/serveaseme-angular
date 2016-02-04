@@ -20,12 +20,12 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         );
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
-mainApp.controller('productController', ['$scope', 'ProductFactory', 'ProductListFactory',
-    '$routeParams', function ($scope, ProductFactory,  ProductListFactory,$routeParams) {
+mainApp.controller('productController', ['$scope', 'ProductFactory',
+    '$routeParams', function ($scope, ProductFactory,  $routeParams) {
         
-        var promise = ProductListFactory.get({id: $routeParams.category_id}).$promise;
+        var promise = ProductFactory.getAllCategories().$promise;
         promise.then(function (productList) {
-            $scope.productList = productList;
+            $scope.categoryList = productList;
         });
 
 

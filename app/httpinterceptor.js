@@ -16,7 +16,9 @@ mainApp.factory('httpinterceptor',['$q','$location','$rootScope','$cookies',func
                 HEADERS = null;
                 $location.path("/");
             } else {
-                console.log("Something went wrong at server!!");
+                console.log(rejection);
+//                alert(rejection.error);
+                
             }
             return $q.reject(rejection);
         }

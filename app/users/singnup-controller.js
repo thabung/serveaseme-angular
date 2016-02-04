@@ -17,6 +17,7 @@ mainApp.controller('signupCtrl', ['$scope', 'UserFactory', function ($scope, Use
                   if (result.error) {
                       $scope.errorMessage = result.error;
                   } else {
+                      $scope.sucessMsg = "Great! Account successfully created"
                       $scope.errorMessage = "";
                   }  
                     

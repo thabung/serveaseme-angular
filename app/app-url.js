@@ -16,6 +16,7 @@ var APP_URL = {
     read_item:API_ENGINE_URL + "items/:id",
     delete_item:API_ENGINE_URL + "items/:id",
     get_category_items:API_ENGINE_URL + "category/:id/items",
+    get_all_category:API_ENGINE_URL + "category",
     change_password:API_ENGINE_URL + "changepassword/:id",
     
     
