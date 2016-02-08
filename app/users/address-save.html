@@ -1,0 +1,93 @@
+<div class="container" id="create_new_address">
+    
+    <form class="form-horizontal"  name='signupform' id="user_login" ng-submit="save(signupform.$valid);" novalidate>
+            <fieldset>
+                
+                <div class="control-group">
+                    
+                    <legend class="">Address</legend>
+                
+                    <label class="control-label" for="username">Full Name</label>
+                    <div class="controls">
+                        <input required ng-model="address.full_name" type="text" placeholder="Name" name="full_name" class="form-control input-lg">
+                        <span ng-show="signupform.full_name.$invalid && signupform.first_name.$dirty" class="help-block" >
+                            Full name is required
+                        </span>
+                    </div>
+                </div>
+                
+                
+                <div class="control-group">
+                    <label class="control-label" for="username">Address</label>
+                    <div class="controls">
+                        <textarea  class="form-control input-lg" required ng-model="address.address" name="address" placeholder="Address"></textarea>
+                        
+                        <span class="help-block"
+                              ng-show="signupform.email.$invalid && signupform.email.$dirty">
+                            Email is required
+                        </span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="username">Mobile number</label>
+                    <div class="controls">
+                        <input class="form-control input-lg" ng-model="address.mobile_number" type="text" placeholder="Mobile" name="mobile_number" >
+        
+                        <span class="help-block"
+                              ng-show="signupform.password.$invalid && signupform.password.$dirty">
+                            Password is required
+                        </span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="username">Landmark</label>
+                    <div class="controls">
+                        <input class="form-control input-lg" ng-model="address.landmark" type="text" placeholder="Landmark" name="landmark" >
+                        
+                        <span class="help-block"
+                              ng-show="signupform.reenter_password.$invalid && signupform.email.$dirty">
+                            Reenter password is required
+                        </span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="username">Area</label>
+                    <div class="controls">
+                        
+                        <select class="form-control input-lg"  ng-model="address.area">
+                             <option ng-repeat="value in areaList" value="{{value}}">{{value}}</option>
+                        </select>
+                        
+                        
+                        <span class="help-block"
+                              ng-show="signupform.reenter_password.$invalid && signupform.email.$dirty">
+                            Reenter password is required
+                        </span>
+                    </div>
+                </div>
+                
+                <input ng-model="address.city" type="hidden" placeholder="Pin number" name="city" value="Guwahati">
+                <input ng-model="address.state" type="hidden" placeholder="Pin number" name="state" value="Assam" >
+
+
+
+                <div class="control-group">
+                    <p class='errorMsg'>{{errorMessage}}</p>
+                    <p class='sucessMsg'>{{sucessMsg}}</p>
+                    <!-- Button -->
+                    <div class="controls">
+                        <!--<button type="submit" class="btn btn-success">Register</button>-->
+                        <input class="btn btn-success"  type='submit' >
+                        
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    
+    
+    
+    
+    
+    
+</div>
+

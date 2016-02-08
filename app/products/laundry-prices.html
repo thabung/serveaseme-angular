@@ -1,0 +1,32 @@
+<hr>
+<div class="container" ng-show="show_price">
+
+    <div ng-repeat="(key, value) in itemList" class="col-md-3 col-sm-6 hero-feature">
+        <h2>{{key}}</h2>
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th>Cloth</th>
+                    <th>Price</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="b in value">
+                    <td>{{b.name}}</td>
+                    <td>{{b.price}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div  class="container">
+    <a class="btn btn-success" href="#/address">Add address</a>
+    
+</div>
+<div></div>
+
+
+
