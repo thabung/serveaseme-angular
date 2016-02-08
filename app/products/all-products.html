@@ -1,16 +1,9 @@
-<!-- Jumbotron Header -->
-<header class="jumbotron hero-spacer">
-    <h1>A Warm Welcome!</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-    <p><a class="btn btn-primary btn-large">Call to action!</a>
-    </p>
-</header>
-
 <hr>
 
 <!-- Title -->
 <div class="row">
     <div class="col-lg-12">
+        <h4>We currently offer Laundry services in Guwahati. We are trying hard to bring up other services very soon!</h4>
         <h3>Services</h3>
     </div>
 </div>
@@ -21,12 +14,12 @@
 
     <div ng-repeat="category in categoryList" class="col-md-3 col-sm-6 hero-feature">
         <div class="thumbnail" ng-class="category.active==1?'':'disabled'"}">
-            <img src="app/assets/app/images/{{category.image}}" alt="">
+            <a href="#/service/laundry"><img class="product-thumbnail" src="app/assets/app/images/{{category.image}}" alt=""></a>
             <div class="caption">
                 <h3>{{category.name}}</h3>
                 <p>{{category.description}}</p>
                 <p>
-                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                    <!--<a href="#" class="btn btn-primary">Try now!</a>-->
                 </p>
             </div>
         </div>

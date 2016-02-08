@@ -13,6 +13,13 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                 }
         );
 
+        $routeProvider.when('/forgot-password',
+                {
+                    templateUrl: 'app/users/forgot-password.html',
+                    controller: 'userCtrl'
+                }
+        );
+
         $routeProvider.when('/address',
                 {
                     templateUrl: 'app/users/address-partial.html',
@@ -21,12 +28,13 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         );
         $routeProvider.when('/address/:id/edit',
                 {
-                    templateUrl: 'app/users/address-partial.html',
+                    templateUrl: 'app/users/address-save.html',
                     controller: 'addressCtrl'
                 }
         );
+        
     }]);
-mainApp.controller('userCtrl', ['$scope', 'UserFactory','$routeParams',, function ($scope, UserFactory,$routeParams) {
+mainApp.controller('userCtrl', ['$scope', 'UserFactory','$routeParams', function ($scope, UserFactory,$routeParams) {
         $scope.user = {};
         $scope.get = function () {
             $scope.errorMessage = "";
@@ -74,6 +82,20 @@ mainApp.controller('userCtrl', ['$scope', 'UserFactory','$routeParams',, functio
 
             });
         };
+        $scope.user = {};
+        $scope.submitForgotPassword = function () {
+            var promise = UserFactory.forgotPassword($scope.user).$promise;
+            promise.then(function (result) {
+                if (result.error) {
+                    $scope.errorMessage = result.error;
+                } else {
+                    $scope.errorMessage = "";
+                    $scope.successMessage = result.message;
+                    
+                }
+
+            });
+        };
         $scope.$watch('$viewContentLoaded', function(){
             $scope.get();
         });
@@ -81,7 +103,7 @@ mainApp.controller('userCtrl', ['$scope', 'UserFactory','$routeParams',, functio
     }
 ]);
 
-mainApp.controller('addressCtrl', ['$scope', 'AddressFactory','$routeParams', function ($scope, AddressFactory,$routeParams) {
+mainApp.controller('addressCtrl', ['$scope', 'AddressFactory','$routeParams','$rootScope', function ($scope, AddressFactory,$routeParams,$rootScope) {
         $scope.address = {};
         $scope.get = function () {
             $scope.errorMessage = "";
@@ -96,6 +118,20 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory','$routeParams', fu
 
             });
         };
+        
+        $scope.getAddressList = function () {
+            var promise = AddressFactory.getAddressByUser({id: $rootScope.user.id}).$promise;
+            promise.then(function (result) {
+                $scope.addressList = result;
+
+            });
+
+        };
+        $scope.areaList = APP_LOCALITY;
+        $scope.getAddressList();
+        
+         
+        $scope.addressMode = "";
         $scope.save = function () {
             $scope.errorMessage = "";
             if ($routeParams.id) {
@@ -112,6 +148,13 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory','$routeParams', fu
                 } else {
                     $scope.errorMessage = "";
                     $scope.address = result;
+                    /*
+                       if (address mode == 'order') {
+                            
+                       
+                       
+                       }
+                     */
                 }
 
             });

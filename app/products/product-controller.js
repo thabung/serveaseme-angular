@@ -18,19 +18,52 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                     controller: 'productController'
                 }
         );
+        $routeProvider.when('/service/laundry',
+                {
+                    templateUrl: 'app/products/laundry.html',
+                    controller: 'laundryCtrl'
+                }
+        );
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
 mainApp.controller('productController', ['$scope', 'ProductFactory',
-    '$routeParams', function ($scope, ProductFactory,  $routeParams) {
-        
+    '$routeParams', function ($scope, ProductFactory, $routeParams) {
+
         var promise = ProductFactory.getAllCategories().$promise;
         promise.then(function (productList) {
             $scope.categoryList = productList;
+            
         });
 
 
 
     }]);
+
+
+mainApp.controller('laundryCtrl', ['$scope','$rootScope', 'ProductFactory','AddressFactory',
+    '$routeParams', function ($scope,$rootScope, ProductFactory,AddressFactory, $routeParams) {
+
+        var promise = ProductFactory.getProductsByPath({path:"Laundry/"}).$promise;
+        promise.then(function (productList) {
+            console.log(productList);
+            $scope.itemList = productList;
+            $scope.laundryMenList = productList['Laundry/Men/'];
+            $scope.laundryWomenList = productList['Laundry/Women/'];
+            $scope.laundryKidList = productList['Laundry/Kids/'];
+        });
+        
+//        $scope.show_price = true;
+        console.log("TESTING ###");
+//        console.log($rootScope.user.user.id);
+       
+        
+        
+
+
+
+    }]);
+
+
 
 
 

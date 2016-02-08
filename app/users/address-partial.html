@@ -1,12 +1,22 @@
-<div>
-    <form name="addressForm" ng-submit="save()">
-        <input ng-model="address.full_name" type="text" placeholder="Name" name="full_name" >
-        <textarea  ng-model="address.address" name="address" placeholder="Address"></textarea>
-        <input ng-model="address.area" type="text" placeholder="Area" name="area" >
-        <input ng-model="address.mobile_number" type="text" placeholder="Mobile" name="mobile_number" >
-        <input ng-model="address.landmark" type="text" placeholder="Landmark" name="landmark" >
-        <input ng-model="address.city" type="hidden" placeholder="Pin number" name="city" value="Guwahati">
-        <input ng-model="address.state" type="hidden" placeholder="Pin number" name="state" value="Assam" >
-        <input type="submit" value="Save">
-    </form>
+<hr>
+
+<div class="container" id='address_list'>
+    <div class="col-md-3 col-sm-6 hero-feature" ng-repeat="(key,value) in addressList">
+        <input type='radio' value='{{value.id}}' name='address' ng-model='order.address_id'>
+        <div>Name: {{value.full_name}}</div>
+        <div>Address: {{value.address}}</div>
+        <div>Area: {{value.area}}</div>
+        <div>Mobile number: {{value.mobile_number}}</div>
+        <div>Landmark: {{value.landmark}}</div>
+        <div>City: {{value.city}}</div>
+        <div>State: {{value.state}}</div>
+        <div>Pin: {{value.pin}}</div>
+        <div><a href='#/address/{{value.id}}/edit'> Edit </a></div>
+
+    </div>
+
 </div>
+<div class="container">
+    <button id="btn-login" class="btn btn-success">Request service now</button>
+</div>
+

@@ -18,8 +18,10 @@ var APP_URL = {
     get_category_items:API_ENGINE_URL + "category/:id/items",
     get_all_category:API_ENGINE_URL + "category",
     change_password:API_ENGINE_URL + "changepassword/:id",
-    
-    
+    forgot_password:API_ENGINE_URL + "resetpassword",
+    item_children:API_ENGINE_URL + "item-children",
+    // address
+    address_by_userid:API_ENGINE_URL + "address/user/:id"
     
 };
 

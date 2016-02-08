@@ -4,7 +4,9 @@ mainApp.factory('ProductFactory', ['$resource',
         return $resource(API_ENGINE_URL + 'items/:itemId', {}, {
             get: {method: 'GET', headers:HEADERS,params: {itemId: '@itemId'}},
             getAllCategories: {method: 'GET', headers:HEADERS,url:APP_URL.get_all_category,isArray:true},
-            save: {method: 'GET', isArray: true}
+            save: {method: 'GET', isArray: true},
+            getProductsByPath: {method: 'post',headers:HEADERS,url:APP_URL.item_children}
+
 
             //tree: {method:'GET', isArray:true,url:API_ENGINE_URL+"category/tree"}
         });
@@ -16,7 +18,7 @@ mainApp.factory('ProductListFactory', ['$resource',
         {}, 
         {
             get: {method: 'GET',headers:HEADERS, params: {category_id: '@category_id', id: '@id'},isArray:true},
-            save: {method: 'GET',headers:HEADERS, isArray: true}
+            save: {method: 'GET',headers:HEADERS, isArray: true},
             
         });
     }]);

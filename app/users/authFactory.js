@@ -48,7 +48,7 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
             },
             login: function (username, password,callback) {
                 var self = this;
-                console.log(username + password);
+//                console.log(username + password);
                 var Login = $resource(APP_URL.login, {},
                         {
                             login: {method: "POST"}
@@ -59,7 +59,8 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
 
                     if (result.token) {
                         console.log(result.token);
-                        self.setUser({email: username, auth_token: result.token});
+                        result.user['token'] = result.token;
+                        self.setUser(result.user);
                         callback(null);
                     } 
                     

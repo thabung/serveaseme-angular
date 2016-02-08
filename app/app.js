@@ -1,7 +1,7 @@
 var mainApp = angular.module('mainApp', ['ngRoute', 'ngResource', 'ngCookies','ngMessages']);
 var HEADERS = {};
 var isPublicRoute = function(path) {
-    publicPathArray = ['/signup','/login']; 
+    publicPathArray = ['/signup','/login','/forgot-password','/auth/facebook']; 
     if (publicPathArray.indexOf(path) > -1) {
         return true;
     } else {

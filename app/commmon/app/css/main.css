@@ -13,3 +13,13 @@
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
+
+.navbar {
+    min-height: 72px;
+}
+
+.product-thumbnail {
+    width:30%;
+}
+.errorMsg{color:red;}
