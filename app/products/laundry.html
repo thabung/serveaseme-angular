@@ -1,22 +1,26 @@
 <hr>
+<h2>Tick the service</h2>
 <div class="container">
-
     <div  class="col-md-3 col-sm-6 hero-feature">
-        <div>
-            <input type="checkbox" name="laundry_type" ng-model="order.type">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" checklist-model="order.service_type" value="wash_iron"> Wash & Iron
+            </label>
         </div>
-        <div>
-            <input type="checkbox" name="laundry_type" ng-model="order.type">
-        </div>
-        <div>
-            <input type="checkbox" name="laundry_type" ng-model="order.type">
-        </div>
+        <div class="checkbox"> 
+            <label>
 
+                <input type="checkbox" checklist-model="order.service_type" value="dry_wash"> Dry Wash
+            </label>
+        </div>
     </div>
 
 </div>
 <div  class="container">
-    <!--    <a class="btn btn-success" href="#/address">Add address</a>-->
+
+    <p class="errorMsg">{{errorMessage}}</p>
+    <a class="btn btn-success" href="" ng-click="addService()"> Add and Proceed</a>
+    <a class="btn btn-success" href="#/laundry/price-list">Show price list</a>
 
 </div>
 <div></div>

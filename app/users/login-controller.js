@@ -6,9 +6,16 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                     controller: 'loginCtrl'
                 }
         );
+        $routeProvider.when('/auth-token/:token',
+                {
+                    templateUrl: 'app/users/login-partial.html',
+                    controller: 'loginCtrl'
+                }
+        );
     }]);
-mainApp.controller('loginCtrl', ['$scope', 'AuthFactory','$location','ProductFactory', function ($scope, Auth, $location,ProductFactory) {
+mainApp.controller('loginCtrl', ['$scope', 'AuthFactory','$location','ProductFactory','$routeParams', function ($scope, Auth, $location,ProductFactory,$routeParams) {
         $scope.user = {};
+        $scope.facebookLoginLink = LOGIN_FACEBOOK_LINK;
         $scope.submit = function () {
             Auth.login($scope.user.email, $scope.user.password, function (err) {
                 if (err) {
@@ -33,6 +40,22 @@ mainApp.controller('loginCtrl', ['$scope', 'AuthFactory','$location','ProductFac
         $scope.logout = function () {
             Auth.logout();
             $location.path("/login");
+        }
+        
+        
+        if ($routeParams.token) {
+            Auth.loginWithToken($routeParams.token,function (err) {
+                if (err) {
+                    if (err.status == 401) {
+                        $scope.errorMessage = "Login failed";
+                    }
+                } else {
+                   // $rootScope.previous_url = "";
+                   // $rootScope.previous_url = "/";
+                   $location.path("/");
+                } 
+
+            });
         }
 
 

@@ -9,10 +9,11 @@
         <meta name="author" content="">
         <!--<link rel="icon" href="app/assets/lib/bootstrap/favicon.ico">-->
 
-        <title>Angular and laravel</title>
+        <title>ServEaseMe</title>
 
         <!-- Bootstrap core CSS -->
         <link href="app/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="app/assets/lib/css/sweet-alert.css" rel="stylesheet">
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <link href="app/assets/lib/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
@@ -26,6 +27,7 @@
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="app/assets/lib/bootstrap/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
         <script src="app/assets/lib/bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+        <script src="app/assets/lib/js/sweet-alert.js"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -39,14 +41,17 @@
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
         <link rel="stylesheet" href="app/commmon/app/css/main.css"> 
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"> 
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="app/assets/lib/js/checklist-model.js"></script>
         <script src="app/app-url.js"></script>
         <script src="app/locality.js"></script>
         <script src="app/app.js"></script>
         <script src="app/users/authFactory.js"></script>
         <script src="app/products/product.js"></script>
+        <script src="app/products/orderFactory.js"></script>
         <script src="app/products/product-controller.js"></script>
         <script src="app/users/login-controller.js"></script>
         <script src="app/users/singnup-controller.js"></script>
@@ -54,6 +59,7 @@
         <script src="app/users/addressFactory.js"></script>
         <script src="app/users/user-controller.js"></script>
         <script src="app/httpinterceptor.js"></script>
+        <script src="app/address/address-controller.js"></script>
 
     </head>
 
@@ -71,20 +77,21 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#/">Home</a>
+                    <a class="navbar-brand" href="#/"><img src="app/assets/app/images/logo.png"></a>
+                    <!--<a class="navbar-brand" href="#/">Home</a>-->
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div ng-controller="loginCtrl" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">About Us</a>
+                            <a href="#/about-us">About Us</a>
                         </li>
-                        <li>
+<!--                        <li>
                             <a href="#">Career</a>
                         </li>
                         <li>
                             <a href="#">Contact</a>
-                        </li>
+                        </li>-->
                     </ul>
                     <login></login>
                    

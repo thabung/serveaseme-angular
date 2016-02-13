@@ -24,6 +24,12 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                     controller: 'laundryCtrl'
                 }
         );
+        $routeProvider.when('/laundry/price-list',
+                {
+                    templateUrl: 'app/products/laundry-prices.html',
+                    controller: 'laundryCtrl'
+                }
+        );
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
 mainApp.controller('productController', ['$scope', 'ProductFactory',
@@ -41,8 +47,11 @@ mainApp.controller('productController', ['$scope', 'ProductFactory',
 
 
 mainApp.controller('laundryCtrl', ['$scope','$rootScope', 'ProductFactory','AddressFactory',
-    '$routeParams', function ($scope,$rootScope, ProductFactory,AddressFactory, $routeParams) {
-
+    '$routeParams','$location', function ($scope,$rootScope, ProductFactory,AddressFactory, $routeParams,$location) {
+        $scope.order = {};
+        $scope.order.service_type = [] ;
+        
+        
         var promise = ProductFactory.getProductsByPath({path:"Laundry/"}).$promise;
         promise.then(function (productList) {
             console.log(productList);
@@ -52,14 +61,22 @@ mainApp.controller('laundryCtrl', ['$scope','$rootScope', 'ProductFactory','Addr
             $scope.laundryKidList = productList['Laundry/Kids/'];
         });
         
-//        $scope.show_price = true;
-        console.log("TESTING ###");
-//        console.log($rootScope.user.user.id);
+        
+        $scope.addService = function() {
+            
+            if ($scope.order.service_type.length == 0) {
+                
+                $scope.errorMessage = "Please tick atleast 1 service!";
+            } else {
+                $location.path("/address/service/?service_type=" + $scope.order.service_type.join(","));
+//                $location.path("/address?z=1");
+//                                  #/address
+            }
+            //#/address
+        }
        
         
-        
-
-
+        console.log("TESTING ###");
 
     }]);
 

@@ -5,6 +5,9 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
             setAuthorizationHeader: function () {
                 HEADERS = {Authorization: "Bearer " + $rootScope.user.auth_token};
             },
+            setAuthorizationHeaderSocial: function (token) {
+                HEADERS = {Authorization: "Bearer " + token};
+            },
             resetAuthorizationHeader: function() {
                 HEADERS = null;
             }
@@ -61,6 +64,29 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
                         console.log(result.token);
                         result.user['token'] = result.token;
                         self.setUser(result.user);
+                        callback(null);
+                    } 
+                    
+
+                },function(error) {
+                    console.log(error);
+                    callback(error) 
+                });
+            },
+            loginWithToken: function (token,callback) {
+                var self = this;
+//                console.log(username + password);
+                self.setAuthorizationHeaderSocial(token);
+                var Login = $resource(APP_URL.userbytoken, {},{
+                    query: {method: 'GET', headers: HEADERS,isArray:false},
+                });
+                var promise = Login.query({token:token}).$promise;
+                promise.then(function (result) {
+
+                    if (result) {
+                        console.log(token);
+                        result['token'] = token;
+                        self.setUser(result);
                         callback(null);
                     } 
                     

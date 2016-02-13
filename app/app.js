@@ -1,7 +1,10 @@
-var mainApp = angular.module('mainApp', ['ngRoute', 'ngResource', 'ngCookies','ngMessages']);
+var mainApp = angular.module('mainApp', ['ngRoute', 'ngResource', 'ngCookies','ngMessages',"checklist-model"]);
 var HEADERS = {};
 var isPublicRoute = function(path) {
-    publicPathArray = ['/signup','/login','/forgot-password','/auth/facebook']; 
+    publicPathArray = ['/signup','/login','/forgot-password','/auth/facebook','/auth-token'];
+    if (location.href.indexOf('auth-token') > -1) {
+        return true;
+    }
     if (publicPathArray.indexOf(path) > -1) {
         return true;
     } else {
@@ -9,9 +12,31 @@ var isPublicRoute = function(path) {
     }
 };
 mainApp.config(['$routeProvider', '$sceProvider', function ($routeProvider, $sceProvider) {
+        $routeProvider.when('/about-us',
+                {
+                    templateUrl: 'app/home/about-us.html',
+                    
+                }
+        );
+        
+        
     }]);
 
+
 mainApp.run(['$rootScope', '$location', 'AuthFactory', function ($rootScope, $location, Auth) {
+        
+        
+        
+         var history = [];
+
+        $rootScope.$on('$routeChangeSuccess', function() {
+            history.push($location.$$path);
+        });
+
+        $rootScope.back = function () {
+            var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+            $location.path(prevUrl);
+        };
         $rootScope.$on('$routeChangeStart', function (event) {
             
             Auth.syncCookieUser();

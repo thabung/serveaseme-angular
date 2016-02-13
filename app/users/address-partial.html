@@ -1,9 +1,10 @@
 <hr>
 
-<div class="container" id='address_list'>
-    <div class="col-md-3 col-sm-6 hero-feature" ng-repeat="(key,value) in addressList">
-        <input type='radio' value='{{value.id}}' name='address' ng-model='order.address_id'>
-        <div>Name: {{value.full_name}}</div>
+<div class="container" id='address_list' ng-show="mode!='create_address'" >
+<!--    THIS IS AN EXAMPLE-->
+    <div class="col-md-3 col-sm-6 hero-feature address_list" ng-repeat="(key,value) in addressList">
+        <input id='radio' type='radio' value='{{value.id}}' name='address' ng-model='order.address_id'>
+        <div for='radio'><div>Name: {{value.full_name}}</div>
         <div>Address: {{value.address}}</div>
         <div>Area: {{value.area}}</div>
         <div>Mobile number: {{value.mobile_number}}</div>
@@ -11,12 +12,35 @@
         <div>City: {{value.city}}</div>
         <div>State: {{value.state}}</div>
         <div>Pin: {{value.pin}}</div>
-        <div><a href='#/address/{{value.id}}/edit'> Edit </a></div>
+        <div>
+            <a href='#/address/{{value.id}}/edit'> Edit </a> 
+            <a class='pull-right pulseWarning' href='' ng-click="delete(value.id)">
+                Delete 
+            </a>
+
+        </div>
+        </div>
 
     </div>
 
+
+
+<p class="errorMsg">{{errorMessage}}</p>
+
+
+<div class="row"></div>
+<hr>
+<div class="row">
+    <a class="btn btn-success"  ng-click='placeEnquiry()'>Select address and Continue</a>
 </div>
+OR 
+<div class="row">
+    <a class="btn btn-success" ng-click='setMode("create_address")'  >Add new address</a>
+</div>
+
+
+</div>
+<addressform></adressform>
 <div class="container">
     <button id="btn-login" class="btn btn-success">Request service now</button>
 </div>
-

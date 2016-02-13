@@ -1,16 +1,16 @@
-<div class="container" id="create_new_address">
+<div class="container" id="create_new_address" ng-show="mode=='create_address'">
     
-    <form class="form-horizontal"  name='signupform' id="user_login" ng-submit="save(signupform.$valid);" novalidate>
+    <form class="form-horizontal"  name='addressform' id="user_login" ng-submit="save(addressform.$valid);" novalidate>
             <fieldset>
                 
                 <div class="control-group">
                     
                     <legend class="">Address</legend>
                 
-                    <label class="control-label" for="username">Full Name</label>
-                    <div class="controls">
-                        <input required ng-model="address.full_name" type="text" placeholder="Name" name="full_name" class="form-control input-lg">
-                        <span ng-show="signupform.full_name.$invalid && signupform.first_name.$dirty" class="help-block" >
+                    <label class="control-label" for="username">Full Name</label><label class="required_span">*</label>
+                    <div class="controls" class="errorMsg">
+                        <input ng-model="address.full_name" type="text" placeholder="Name" name="full_name" class="form-control input-lg" required />
+                        <span class=" errorMsg" ng-show="addressform.full_name.$invalid&&addressform.full_name.$dirty" >
                             Full name is required
                         </span>
                     </div>
@@ -18,53 +18,72 @@
                 
                 
                 <div class="control-group">
-                    <label class="control-label" for="username">Address</label>
+                    <label class="control-label" for="username">Address</label><label class="required_span">*</label>
                     <div class="controls">
-                        <textarea  class="form-control input-lg" required ng-model="address.address" name="address" placeholder="Address"></textarea>
+                        <textarea  class="form-control input-lg" required ng-model="address.address" name="address" placeholder="Address" required></textarea>
                         
-                        <span class="help-block"
-                              ng-show="signupform.email.$invalid && signupform.email.$dirty">
-                            Email is required
+                        <span class="help-block errorMsg" 
+                              ng-show="addressform.address.$invalid && addressform.address.$dirty">
+                            Address is required
                         </span>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="username">Mobile number</label>
+                    <label class="control-label" for="username">Mobile number</label><label class="required_span">*</label>
                     <div class="controls">
-                        <input class="form-control input-lg" ng-model="address.mobile_number" type="text" placeholder="Mobile" name="mobile_number" >
+                        <input  ng-minlength="10" ng-maxlength="10" class="form-control input-lg" ng-model="address.mobile_number" type="text" placeholder="Mobile" name="mobile_number" required />
         
-                        <span class="help-block"
-                              ng-show="signupform.password.$invalid && signupform.password.$dirty">
-                            Password is required
+                        <span class="help-block errorMsg" 
+                              ng-show="addressform.mobile_number.$invalid.required">
+                           Mobile number is required
                         </span>
+                        <div class="errorMsg" ng-messages="addressform.mobile_number.$error">
+                            <p ng-message="minlength">Invalid mobile number</p>
+                            <p ng-message="maxlength">Invalid mobile number</p>
+                            <!--<p ng-message="required">Number missing</p>-->
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="username">Landmark</label>
-                    <div class="controls">
-                        <input class="form-control input-lg" ng-model="address.landmark" type="text" placeholder="Landmark" name="landmark" >
-                        
-                        <span class="help-block"
-                              ng-show="signupform.reenter_password.$invalid && signupform.email.$dirty">
-                            Reenter password is required
-                        </span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="username">Area</label>
+                    <label class="control-label" for="username">Area</label><label class="required_span">*</label>
                     <div class="controls">
                         
-                        <select class="form-control input-lg"  ng-model="address.area">
+                        <select class="form-control input-lg"  ng-model="address.area" required >
                              <option ng-repeat="value in areaList" value="{{value}}">{{value}}</option>
                         </select>
                         
                         
-                        <span class="help-block"
-                              ng-show="signupform.reenter_password.$invalid && signupform.email.$dirty">
-                            Reenter password is required
+                        <span  class="help-block errorMsg"
+                              ng-show="addressform.area.$invalid && addressform.area.$dirty">
+                            Address is required
                         </span>
                     </div>
                 </div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="username">Landmark</label><label class="required_span">*</label>
+                    <div class="controls">
+                        <input class="form-control input-lg" ng-model="address.landmark" type="text" placeholder="Landmark" name="landmark" required />
+                        
+                        <span  class="help-block errorMsg"
+                              ng-show="addressform.landmark.$invalid && addressform.landmark.$dirty">
+                            Landmark is required
+                        </span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="username">Pin</label><label class="required_span">*</label>
+                    <div class="controls">
+                        <input class="form-control input-lg" ng-model="address.pin" type="text" placeholder="Pin number" name="pin" required />
+                        
+                        <span  class="help-block errorMsg"
+                              ng-show="addressform.pin.$invalid && addressform.pin.$dirty">
+                            Pin is required
+                        </span>
+                    </div>
+                </div>
+                
                 
                 <input ng-model="address.city" type="hidden" placeholder="Pin number" name="city" value="Guwahati">
                 <input ng-model="address.state" type="hidden" placeholder="Pin number" name="state" value="Assam" >
