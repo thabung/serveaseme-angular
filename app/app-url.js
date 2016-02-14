@@ -1,5 +1,4 @@
-var API_ENGINE_URL = 'http://serveaseme.local/index.php/api/';
-var LOGIN_FACEBOOK_LINK = 'http://serveaseme.local/index.php/auth/facebook';
+
 
 var APP_URL = {
     login: API_ENGINE_URL + "authenticate",
