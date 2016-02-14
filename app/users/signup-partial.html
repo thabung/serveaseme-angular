@@ -10,7 +10,7 @@
                     <label class="control-label" for="username">First Name</label>
                     <div class="controls">
                         <input required placeholder="First name" type='text' name='first_name' class="form-control input-lg" ng-model="user.first_name" >
-                        <span class="help-block"
+                        <span class="help-block required_span"
                               ng-show="signupform.first_name.$invalid && signupform.first_name.$dirty">
                             Firstname is required
                         </span>
@@ -20,7 +20,7 @@
                     <label class="control-label" for="username">Last name</label>
                     <div class="controls">
                         <input required placeholder="Last name" type='text' name='last_name' class="form-control input-lg" ng-model="user.last_name" >
-                        <span class="help-block"
+                        <span class="help-block required_span"
                               ng-show="signupform.last_name.$invalid && signupform.last_name.$dirty">
                             Last name is required
                         </span>
@@ -30,7 +30,7 @@
                     <label class="control-label" for="username">Email</label>
                     <div class="controls">
                         <input class="form-control input-lg" required placeholder="Email" name="email" type='email' ng-model="user.email" >
-                        <span class="help-block"
+                        <span class="help-block required_span"
                               ng-show="signupform.email.$invalid && signupform.email.$dirty">
                             Email is required
                         </span>
@@ -40,14 +40,14 @@
                     <label class="control-label" for="username">Password</label>
                     <div class="controls">
                         <input class="form-control input-lg" required placeholder="Password" name="password" type='password' ng-model="user.password" >
-                        <span class="help-block"
+                        <span class="help-block required_span"
                               ng-show="signupform.password.$invalid && signupform.password.$dirty">
                             Password is required
                         </span>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="username">Reenter password</label>
+                    <label class="control-label required_span" for="username">Reenter password</label>
                     <div class="controls">
                         <input class="form-control input-lg" required placeholder="Email" name="reenter_password" type='password' ng-model="user.reenter_password" >
                         <span class="help-block"
@@ -65,7 +65,7 @@
                     <!-- Button -->
                     <div class="controls">
                         <!--<button type="submit" class="btn btn-success">Register</button>-->
-                        <input class="btn btn-success" ng-disabled="signupform.$invalid" type='submit' >
+                        <input class="btn btn-success required_span" ng-disabled="signupform.$invalid" type='submit' >
                         
                     </div>
                 </div>
