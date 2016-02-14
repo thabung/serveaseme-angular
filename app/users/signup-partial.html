@@ -47,10 +47,10 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label required_span" for="username">Reenter password</label>
+                    <label class="control-label " for="username">Reenter password</label>
                     <div class="controls">
-                        <input class="form-control input-lg" required placeholder="Email" name="reenter_password" type='password' ng-model="user.reenter_password" >
-                        <span class="help-block"
+                        <input class="form-control input-lg" required placeholder="Reneter password" name="reenter_password" type='password' ng-model="user.reenter_password" >
+                        <span class="help-block required_span"
                               ng-show="signupform.reenter_password.$invalid && signupform.email.$dirty">
                             Reenter password is required
                         </span>
@@ -65,7 +65,7 @@
                     <!-- Button -->
                     <div class="controls">
                         <!--<button type="submit" class="btn btn-success">Register</button>-->
-                        <input class="btn btn-success required_span" ng-disabled="signupform.$invalid" type='submit' >
+                        <input class="btn btn-success" ng-disabled="signupform.$invalid" type='submit' >
                         
                     </div>
                 </div>
