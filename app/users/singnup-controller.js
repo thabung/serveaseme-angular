@@ -7,7 +7,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                 }
         );
 }]);
-mainApp.controller('signupCtrl', ['$scope', 'UserFactory', function ($scope, UserFactory) {
+mainApp.controller('signupCtrl', ['$scope', 'UserFactory','$location', function ($scope, UserFactory,$location) {
         $scope.user = {};
         $scope.submit = function (isValid) {
             $scope.errorMessage = "";
@@ -20,6 +20,7 @@ mainApp.controller('signupCtrl', ['$scope', 'UserFactory', function ($scope, Use
 //                      $scope.sucessMsg = "Great! Account successfully created"u
                         swal("Awesome! You have created your account!");
                       $scope.errorMessage = "";
+                      $location.path("#/");
                   }  
                     
                 });
