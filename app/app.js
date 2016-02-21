@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp', ['ngRoute', 'ngResource', 'ngCookies','ngMessages',"checklist-model"]);
+var mainApp = angular.module('mainApp', ['ngRoute', 'ngResource', 'ngCookies','ngMessages',"checklist-model","ngSanitize"]);
 var HEADERS = {};
 var isPublicRoute = function(path) {
     publicPathArray = ['/signup','/login','/forgot-password','/auth/facebook','/auth-token','/about-us'];

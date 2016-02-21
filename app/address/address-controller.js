@@ -79,9 +79,11 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
             $scope.address.user_id = $rootScope.user.id;
 
             $scope.errorMessage = "";
+//            var isUpdate = false;
             if ($routeParams.id) {
                 $scope.address.id = $routeParams.id;
                 var promise = AddressFactory.update($scope.address).$promise;
+//                isUpdate = true;
 
             } else {
                 var promise = AddressFactory.save($scope.address).$promise;
@@ -96,7 +98,13 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
 
                     $scope.address = result;
                     swal("Address saved!");
-                    $rootScope.back();
+                    
+                    if ($routeParams.id) {
+                        $rootScope.back();
+                    } else {
+                        $scope.enquiry.address_id = result.id;
+                    }
+                    
                    
                 }
 
@@ -134,6 +142,27 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
             
             
         };
+        
+        $scope.availableTimeList = [];
+        for (i = 8; i < 20; i++) {
+            if (i < 12) {
+                if (i + 1 == 12) {
+                    $scope.availableTimeList.push(i + ":00 am  - " + (i + 1) + ":00 pm");
+
+                } else {
+                    $scope.availableTimeList.push(i + ":00 am  - " + (i + 1) + ":00 am");
+
+                }
+
+            } else if (i == 12) {
+                $scope.availableTimeList.push(i + ":00 pm - 1:00 pm");
+            } else {
+
+                $scope.availableTimeList.push((i - 12) + ":00 pm - " + (i - 11) + ":00 pm");
+
+            }
+        }
+        
         $scope.order = {};
         var laundry_service = {dry_wash: 1, wash_iron: 2};
         if ($routeParams.service_type) {
@@ -154,30 +183,17 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
             $scope.mode="create_address";
         }
 //        console.log(items);
-        $scope.order.updated_by = $rootScope.user.id;
+        $scope.enquiry = {};
+        $scope.enquiry.updated_by = $rootScope.user.id;
         $scope.placeEnquiry = function () {
-            if (!$scope.order.address_id) {
-                $scope.errorMessage = "Please select an adress!";
-                return;
+            if ($scope.enquiry.address_id && $scope.enquiry.pickup_date && $scope.enquiry.pickup_time) {
+                $scope.$emit('placeOrder');
             }
-            if ($scope.order.items.length == 0) {
-                $scope.errorMessage = "You have not selected any service!";
-                return;
-            }
-            var promise = EnquiryFactory.placeEnquiry($scope.order).$promise;
-            promise.then(function (result) {
-                if (result.error) {
-                    $scope.errorMessage = result.error;
-                } else {
 
-                    $scope.errorMessage = "";
-                    $location.path("/");
-                    swal({title: "Great!", text: "Your have placed the enquiry! We will contact you soon!", type: "success"}, function () {
 
-                    });
-                }
+            return;
 
-            });
+
         };
 
 
@@ -194,7 +210,7 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
 
             });
         };
-
+        
         $scope.$watch('$viewContentLoaded', function () {
             if ($routeParams.id) {
                 $scope.get();
@@ -207,4 +223,19 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
     return {
         restrict: 'E',
         templateUrl: 'app/users/address-save.html'};
+}).directive('jqdatepicker', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+         link: function (scope, element, attrs, ngModelCtrl) {
+            $(element).datepicker({
+                dateFormat: 'DD, d  MM, yy',
+                minDate:0,
+                onSelect: function (date) {
+                    scope.enquiry.pickup_date = date;
+                    scope.$apply();
+                }
+            });
+        }
+    };
 });

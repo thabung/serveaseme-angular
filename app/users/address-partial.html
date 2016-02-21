@@ -3,7 +3,7 @@
 <div class="container" id='address_list' ng-show="mode!='create_address'" >
 <!--    THIS IS AN EXAMPLE-->
     <div class="col-md-3 col-sm-6 hero-feature address_list" ng-repeat="(key,value) in addressList">
-        <input id='radio' type='radio' value='{{value.id}}' name='address' ng-model='order.address_id'>
+        <input id='radio' type='radio' value='{{value.id}}' name='address' ng-model='enquiry.address_id'>
         <div for='radio'><div>Name: {{value.full_name}}</div>
         <div>Address: {{value.address}}</div>
         <div>Area: {{value.area}}</div>
@@ -30,19 +30,23 @@
 
 <div class="row"></div>
 <hr>
-
-<div class="row">
-    <input type='text' ng-model='enquiry.date'>
-</div>
-<div class="row">
-        <input type='text' ng-model='enquiry.time'>
-
-</div>
-<div class="row">
-    
-    
-    <a class="btn btn-success"  ng-click='placeEnquiry()'>Select address and Continue</a>
-
+<div class="container">
+    <form ng-submit="placeEnquiry()">
+        <label class="control-label" for="username">Pick up date</label><label class="required_span">*</label>
+        <div class="row">
+            <input  id="pickup_date" placeholder="Pick up date" class="form-control input-lg" required type='text' ng-model='enquiry.pickup_date' jqdatepicker>
+            
+        </div>
+        <label class="control-label" for="username">Pick up time</label><label class="required_span">*</label>
+        <div class="row">
+            <select class="form-control input-lg"  name=""  ng-model='enquiry.pickup_time' required>
+                <option ng-repeat="i in availableTimeList">{{i}}</option>
+            </select>
+        </div>
+        <div class="row">
+            <button class="btn btn-success">Select address and Continue</button>
+        </div>
+    </form>
 </div>
 OR 
 <div class="row">
@@ -55,3 +59,4 @@ OR
 <div class="container">
     <button id="btn-login" class="btn btn-success">Request service now</button>
 </div>
+

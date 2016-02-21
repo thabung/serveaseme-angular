@@ -32,27 +32,44 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         );
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
-mainApp.controller('productController', ['$scope', 'ProductFactory',
-    '$routeParams', function ($scope, ProductFactory, $routeParams) {
-
-        var promise = ProductFactory.getAllCategories().$promise;
-        promise.then(function (productList) {
-            $scope.categoryList = productList;
-            
+mainApp.controller('productController', ['$scope', 'CategoryFactory',
+    '$routeParams', function ($scope, CategoryFactory, $routeParams) {
+        $scope.categoryList = {};
+        $scope.getChildren = function (id) {
+            var promise = CategoryFactory.getChildren({parent_id:id}).$promise;
+            promise.then(function (productList) {
+                $scope.categoryList = productList;
+            });
+        }
+        $scope.$watch('$viewContentLoaded', function () {
+            $scope.getChildren(1);
         });
-
 
 
     }]);
 
 
-mainApp.controller('laundryCtrl', ['$scope','$rootScope', 'ProductFactory','AddressFactory',
-    '$routeParams','$location', function ($scope,$rootScope, ProductFactory,AddressFactory, $routeParams,$location) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mainApp.controller('laundryCtrl', ['$scope', '$rootScope', 'ProductFactory', 'AddressFactory',
+    '$routeParams', '$location', function ($scope, $rootScope, ProductFactory, AddressFactory, $routeParams, $location) {
         $scope.order = {};
-        $scope.order.service_type = [] ;
-        
-        
-        var promise = ProductFactory.getProductsByPath({path:"Laundry/"}).$promise;
+        $scope.order.service_type = [];
+
+
+        var promise = ProductFactory.getProductsByPath({path: "Laundry/"}).$promise;
         promise.then(function (productList) {
             console.log(productList);
             $scope.itemList = productList;
@@ -60,12 +77,12 @@ mainApp.controller('laundryCtrl', ['$scope','$rootScope', 'ProductFactory','Addr
             $scope.laundryWomenList = productList['Laundry/Women/'];
             $scope.laundryKidList = productList['Laundry/Kids/'];
         });
-        
-        
-        $scope.addService = function() {
-            
+
+
+        $scope.addService = function () {
+
             if ($scope.order.service_type.length == 0) {
-                
+
                 $scope.errorMessage = "Please tick atleast 1 service!";
             } else {
                 $location.path("/address/service/?service_type=" + $scope.order.service_type.join(","));
@@ -74,8 +91,8 @@ mainApp.controller('laundryCtrl', ['$scope','$rootScope', 'ProductFactory','Addr
             }
             //#/address
         }
-       
-        
+
+
         console.log("TESTING ###");
 
     }]);
