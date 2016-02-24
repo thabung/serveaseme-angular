@@ -12,6 +12,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
 mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
     '$routeParams',"$rootScope","$location", function ($scope, CategoryFactory, $routeParams,$rootScope,$location) {
         $scope.laundryServiceTypes = {};
+        $scope.laundryServiceNames = {};
         $scope.now_showing = "service_types";
         $scope.getChildren = function (id,callback) {
             var promise = CategoryFactory.getChildren({parent_id:id}).$promise;
@@ -23,6 +24,7 @@ mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
         $scope.clothPrices = {};
         $scope.showClothPriceList = function() {
             angular.forEach($scope.laundryServiceTypes, function (value, key) {
+                $scope.laundryServiceNames[value.id] = value.name;
                 $scope.getChildren(value.id,function(itemList) {
                     $scope.clothPrices[value.name] = itemList;
                 
@@ -39,8 +41,11 @@ mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
             $scope.now_showing = "service_types";
         };
         $scope.addCartLaundry = function() {
+            angular.forEach($scope.enquiry.items,function(value,key) {
+//                var temp = value.split(":");
+                $rootScope.$emit('addToCartEnquiry', {id:value,name:$scope.laundryServiceNames[value]});
+            });
             
-            $scope.$emit('addToCart', $scope.enquiry.items);
             $location.path("/address");
         };
         
@@ -48,6 +53,9 @@ mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
         $scope.$watch('$viewContentLoaded', function () {
             $scope.getChildren($routeParams.id,function(itemList) {
                 $scope.laundryServiceTypes = itemList;
+                angular.forEach($scope.laundryServiceTypes, function (value, key) {
+                    $scope.laundryServiceNames[value.id] = value.name;
+                })
 
             });
         });

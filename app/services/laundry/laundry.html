@@ -6,7 +6,7 @@
     <ul class="list-inline">
         <li  ng-repeat="service in laundryServiceTypes">
              
-            <input id='service_{{service.id}}' checklist-value="service.id" type="checkbox" checklist-model="enquiry.items" value="{{service.id}}"> <label for='service_{{service.id}}'>{{service.name}}</label>
+            <input id='service_{{service.id}}'  checklist-value="service.id" type="checkbox" checklist-model="enquiry.items" value="{{service.id}}"> <label for='service_{{service.id}}'>{{service.name}}</label>
             <!--<input id='radio' type='radio' value='{{service.id}}' name='category' ng-model='enquiry.category'>-->    
         </li></ul>
     <button ng-click="addCartLaundry()" ng-show="enquiry.items.length > 0">({{enquiry.items.length}} selected) Continue</button>

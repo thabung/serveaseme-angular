@@ -26,5 +26,5 @@ mainApp.factory('httpinterceptor',['$q','$location','$rootScope','$cookies',func
 }])
 .config(['$httpProvider',function($httpProvider) {
     //Http Intercpetor to check auth failures for xhr requests
-    $httpProvider.interceptors.push('httpinterceptor');
+//    $httpProvider.interceptors.push('httpinterceptor');
 }]);

@@ -23,10 +23,10 @@ mainApp.config(['$routeProvider', '$sceProvider', function ($routeProvider, $sce
     }]);
 
 
-mainApp.run(['$rootScope', '$location', 'AuthFactory', function ($rootScope, $location, Auth) {
+mainApp.run(['$rootScope', '$location', 'AuthFactory','$cookies', function ($rootScope, $location, Auth,$cookies) {
         
         
-        
+        $rootScope.enquiry_made = {};
          var history = [];
 
         $rootScope.$on('$routeChangeSuccess', function() {
@@ -50,6 +50,10 @@ mainApp.run(['$rootScope', '$location', 'AuthFactory', function ($rootScope, $lo
                     $location.path('/');
                 } 
                 console.log('ALLOW');
+                
+               // $cookies.put('enquiry_made', JSON.stringify({items:[]}));
+
+                $rootScope.$emit('syncEnquiryMade');
                 
             }
         });

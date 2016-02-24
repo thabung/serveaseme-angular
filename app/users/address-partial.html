@@ -25,7 +25,6 @@
 
 
 
-<p class="errorMsg">{{errorMessage}}</p>
 
 
 <div class="row"></div>
@@ -34,15 +33,17 @@
     <form ng-submit="placeEnquiry()">
         <label class="control-label" for="username">Pick up date</label><label class="required_span">*</label>
         <div class="row">
-            <input  id="pickup_date" placeholder="Pick up date" class="form-control input-lg" required type='text' ng-model='enquiry.pickup_date' jqdatepicker>
+            <input readonly  id="pickup_date" placeholder="Pick up date" class="form-control input-lg" required type='text' ng-model='enquiry.pickup_date' jqdatepicker>
             
         </div>
         <label class="control-label" for="username">Pick up time</label><label class="required_span">*</label>
         <div class="row">
             <select class="form-control input-lg"  name=""  ng-model='enquiry.pickup_time' required>
-                <option ng-repeat="i in availableTimeList">{{i}}</option>
+                <option ng-repeat="i in availableTimeList" value="{{i.val}}">{{i.val}}</option>
             </select>
         </div>
+        <p class="errorMsg">{{errorMessage}}</p>
+
         <div class="row">
             <button class="btn btn-success">Select address and Continue</button>
         </div>

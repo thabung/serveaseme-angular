@@ -23,7 +23,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
     }]);
 
 
-mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '$rootScope', 'OrderFactory', '$location','EnquiryFactory', function ($scope, AddressFactory, $routeParams, $rootScope, OrderFactory, $location,EnquiryFactory) {
+mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '$rootScope', '$location', function ($scope, AddressFactory, $routeParams, $rootScope, $location) {
         $scope.address = {};
         $scope.get = function () {
             $scope.errorMessage = "";
@@ -40,6 +40,7 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
         };
 
         $scope.getAddressList = function () {
+            console.log(HEADERS);
             var promise = AddressFactory.getAddressByUser({id: $rootScope.user.id}).$promise;
             promise.then(function (result) {
                 $scope.addressList = result;
@@ -147,18 +148,18 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
         for (i = 8; i < 20; i++) {
             if (i < 12) {
                 if (i + 1 == 12) {
-                    $scope.availableTimeList.push(i + ":00 am  - " + (i + 1) + ":00 pm");
+                    $scope.availableTimeList.push({key:i,val:i + ":00 am  - " + (i + 1) + ":00 pm"});
 
                 } else {
-                    $scope.availableTimeList.push(i + ":00 am  - " + (i + 1) + ":00 am");
+                    $scope.availableTimeList.push({key:i,val:i + ":00 am  - " + (i + 1) + ":00 am"});
 
                 }
 
             } else if (i == 12) {
-                $scope.availableTimeList.push(i + ":00 pm - 1:00 pm");
+                $scope.availableTimeList.push({key:i,val:i + ":00 pm - 1:00 pm"});
             } else {
 
-                $scope.availableTimeList.push((i - 12) + ":00 pm - " + (i - 11) + ":00 pm");
+                $scope.availableTimeList.push({key:i,val:(i - 12) + ":00 pm - " + (i - 11) + ":00 pm"});
 
             }
         }
@@ -186,8 +187,17 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
         $scope.enquiry = {};
         $scope.enquiry.updated_by = $rootScope.user.id;
         $scope.placeEnquiry = function () {
-            if ($scope.enquiry.address_id && $scope.enquiry.pickup_date && $scope.enquiry.pickup_time) {
-                $scope.$emit('placeOrder');
+            if ($scope.enquiry.address_id) {
+                $rootScope.$emit('addEnquiryDetails',{
+                    address_id:$scope.enquiry.address_id,
+                    pickup_date:$scope.enquiry.pickup_date,
+                    pickup_time:$scope.enquiry.pickup_time
+                
+                });
+                $location.path("/enquiry-preview");
+
+            } else {
+                $scope.errorMessage = "Please select an address";
             }
 
 
@@ -229,7 +239,7 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
         require: 'ngModel',
          link: function (scope, element, attrs, ngModelCtrl) {
             $(element).datepicker({
-                dateFormat: 'DD, d  MM, yy',
+                dateFormat: 'd/mm/yy',
                 minDate:0,
                 onSelect: function (date) {
                     scope.enquiry.pickup_date = date;

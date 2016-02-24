@@ -3,7 +3,7 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
         var user;
         return{
             setAuthorizationHeader: function () {
-                HEADERS = {Authorization: "Bearer " + $rootScope.user.auth_token};
+                HEADERS = {Authorization: "Bearer " + $rootScope.user.token};
             },
             setAuthorizationHeaderSocial: function (token) {
                 HEADERS = {Authorization: "Bearer " + token};
