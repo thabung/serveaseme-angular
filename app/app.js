@@ -1,5 +1,6 @@
-var mainApp = angular.module('mainApp', ['ngRoute', 'ngResource', 'ngCookies','ngMessages',"checklist-model","ngSanitize"]);
-var HEADERS = {};
+var mainApp = angular.module('mainApp', ['ngRoute', 'ngResource', 'ngCookies','ngMessages',"checklist-model","ngSanitize",'ngCart']);
+console.log("#################XXXXXXXXXXXXXXXXXXXX##################");
+console.log(HEADERS);
 var isPublicRoute = function(path) {
     publicPathArray = ['/signup','/login','/forgot-password','/auth/facebook','/auth-token','/about-us'];
     if (location.href.indexOf('auth-token') > -1) {

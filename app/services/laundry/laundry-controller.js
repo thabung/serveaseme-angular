@@ -8,9 +8,9 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                 }
         );}]);
         
-        
+//$scope.clothPric  = {};        
 mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
-    '$routeParams',"$rootScope","$location", function ($scope, CategoryFactory, $routeParams,$rootScope,$location) {
+    '$routeParams',"$rootScope","$location","ngCart", function ($scope, CategoryFactory, $routeParams,$rootScope,$location,ngCart) {
         $scope.laundryServiceTypes = {};
         $scope.laundryServiceNames = {};
         $scope.now_showing = "service_types";
@@ -22,18 +22,25 @@ mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
             });
         };
         $scope.clothPrices = {};
-        $scope.showClothPriceList = function() {
-            angular.forEach($scope.laundryServiceTypes, function (value, key) {
-                $scope.laundryServiceNames[value.id] = value.name;
-                $scope.getChildren(value.id,function(itemList) {
-                    $scope.clothPrices[value.name] = itemList;
+        $scope.clothItems = null;
+        $scope.showClothPriceList = function(parentId,parentName) {
+            
+            if ($scope.clothPrices[parentId]) {
+                $scope.clothItems = $scope.clothPrices[parentId];
+                return;
+            }
+            $scope.getChildren(parentId,function(itemList) {
+                var name = parentName;
+                var items = [];
+                angular.forEach(itemList, function (value, key) {
+                    items.push(value);
                 
                 });
-                $scope.now_showing = "price_list";
+                $scope.clothPrices[parentId] = {name:name,items:items};
+                $scope.clothItems = $scope.clothPrices[parentId];
+//                $scope.now_showing = "price_list";
                 
             });
-            
-            
         };
         $scope.enquiry = {};
 //        $scope.enquiry 
@@ -53,9 +60,15 @@ mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
         $scope.$watch('$viewContentLoaded', function () {
             $scope.getChildren($routeParams.id,function(itemList) {
                 $scope.laundryServiceTypes = itemList;
+                var first = true;
                 angular.forEach($scope.laundryServiceTypes, function (value, key) {
+                    if (first) {
+                        first = false;
+                        $scope.showClothPriceList(value.id,value.name);
+                    }
                     $scope.laundryServiceNames[value.id] = value.name;
-                })
+                });
+                $scope.showClothPriceList();
 
             });
         });

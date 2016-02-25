@@ -1,35 +1,19 @@
 mainApp.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/category/:category_id/items',
-                {
-                    templateUrl: 'app/products/partial-product.html',
-                    controller: 'productController'
-                }
-        );
+       
+       
 
-        $routeProvider.when('categ/items',
-                {
-                    templateUrl: 'app/products/user-detail.html',
-                    controller: 'productController'
-                }
-        );
+       
+       
         $routeProvider.when('/',
                 {
                     templateUrl: 'app/products/all-products.html',
                     controller: 'productController'
                 }
         );
-        $routeProvider.when('/service/laundry',
-                {
-                    templateUrl: 'app/products/laundry.html',
-                    controller: 'laundryCtrl'
-                }
-        );
-        $routeProvider.when('/laundry/price-list',
-                {
-                    templateUrl: 'app/products/laundry-prices.html',
-                    controller: 'laundryCtrl'
-                }
-        );
+        
+        
+       
+       
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
 mainApp.controller('productController', ['$scope', 'CategoryFactory',

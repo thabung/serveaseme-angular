@@ -47,6 +47,8 @@
         <link rel="stylesheet" href="app/commmon/app/css/main.css"> 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"> 
         <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/ngCart/dist/ngCart.js"></script>
+        
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="app/assets/lib/js/checklist-model.js"></script>
@@ -113,19 +115,26 @@
                             <a href="#">Contact</a>
                         </li>-->
                     </ul>
+                    <div class="pull-right"><ngcart-summary></ngcart-summary></div>
+
                     <login></login>
                    
                     
                     
                     
                 </div>
+                
+                
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container -->
         </nav>
 
         <!-- Page Content -->
-        <div class="container" style="    margin-top: 40px;" ng-controller="orderEnquiryCtrl">
+        <div class="container" style="    margin-top: 40px;" ng-controller="orderItemCtrl">
+            
+            
+            
             <div ng-view>
 
 

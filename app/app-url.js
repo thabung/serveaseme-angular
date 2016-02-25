@@ -1,5 +1,5 @@
-
-
+var HEADERS = {};
+var headerss = {Authorization : "dfsdfsdfsfs"};
 var APP_URL = {
     login: API_ENGINE_URL + "authenticate",
     userbytoken: API_ENGINE_URL + "user-by-token",
@@ -11,7 +11,7 @@ var APP_URL = {
     order_read: API_ENGINE_URL + "orders/:id",
     order_update: API_ENGINE_URL + "orders/:id",
     order_delete: API_ENGINE_URL + "orders/:id",
-    place_enquiry: API_ENGINE_URL + "enquiry",
+//    place_enquiry: API_ENGINE_URL + "enquiry",
     
     add_item:API_ENGINE_URL + "items",
     update_item:API_ENGINE_URL + "items",

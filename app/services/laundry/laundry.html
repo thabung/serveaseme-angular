@@ -1,19 +1,41 @@
 <hr>
 
 <div class="container" ng-show="now_showing == 'service_types'">
+
     <h3>Services we offer</h3>
 
-    <ul class="list-inline">
+    <ul class="nav nav-tabs">
         <li  ng-repeat="service in laundryServiceTypes">
-             
-            <input id='service_{{service.id}}'  checklist-value="service.id" type="checkbox" checklist-model="enquiry.items" value="{{service.id}}"> <label for='service_{{service.id}}'>{{service.name}}</label>
+            <a ng-click='showClothPriceList(service.id,service.name)' >{{service.name}}</a>
+<!--            <input id='service_{{service.id}}'  checklist-value="service.id" type="checkbox" checklist-model="enquiry.items" value="{{service.id}}"> <label for='service_{{service.id}}'>{{service.name}}</label>-->
             <!--<input id='radio' type='radio' value='{{service.id}}' name='category' ng-model='enquiry.category'>-->    
-        </li></ul>
-    <button ng-click="addCartLaundry()" ng-show="enquiry.items.length > 0">({{enquiry.items.length}} selected) Continue</button>
-    <button ng-click="showClothPriceList()"> Show prices</button>
-</div>
-<div class="container" ng-show="now_showing == 'price_list'">
-    <laundryprices></laundryprices>
-    <button ng-click="showServices()"> Show Services</button>
+        </li>
+    </ul>
+    <div class="container">
+        <h3>{{clothItems.name}}</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cloth</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
 
+            </thead>
+            <tbody>
+            <tr  ng-repeat="item in clothItems.items ">
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td><ngcart-addtocart id="{{ item.id }}" name="{{ item.name }}" price="{{ item.price }}" quantity="1" quantity-max="30" data="item"></ngcart-addtocart></td>
+            </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <a href='#/order-preview' class='success '>Next</a>
+    
+    
+    
+    
 </div>
+

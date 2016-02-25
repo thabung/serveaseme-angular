@@ -2,17 +2,17 @@
 mainApp.config(['$routeProvider', function ($routeProvider) {
 
 
-        $routeProvider.when('/enquiry-preview',
+        $routeProvider.when('/order-preview',
                 {
                     templateUrl: 'app/ordersenquiry/enquiry-preview.html',
-                    controller: 'orderEnquiryCtrl'
+                    controller: 'orderItemCtrl'
                 }
         );
 
 
 
     }]);
-mainApp.controller('orderEnquiryCtrl', ['$scope', '$rootScope', 'AddressFactory','EnquiryFactory', '$cookies','$location', function ($scope, $rootScope, AddressFactory,EnquiryFactory, $cookies,$location) {
+mainApp.controller('orderItemCtrl', ['$scope', '$rootScope', 'AddressFactory','OrderFactory', '$cookies','$location','ngCart', function ($scope, $rootScope, AddressFactory,OrderFactory, $cookies,$location,ngCart) {
 
 
         $rootScope.$on('addToCartEnquiry', function (idk, item) {
@@ -42,15 +42,11 @@ mainApp.controller('orderEnquiryCtrl', ['$scope', '$rootScope', 'AddressFactory'
             angular.forEach(item, function (value, key) {
                 enquiry[key] = value;
             });
-            console.log("enquiry###########################");
-            console.log(enquiry);
             $cookies.put('enquiry_made', JSON.stringify(enquiry));
-
             $rootScope.$emit('syncEnquiryMade');
         });
 
         $rootScope.$on('syncEnquiryMade', function () {
-            console.log("FUXK");
             var enquiry = null;
             if ($cookies.get('enquiry_made')) {
                  enquiry = JSON.parse($cookies.get('enquiry_made'));
@@ -60,13 +56,11 @@ mainApp.controller('orderEnquiryCtrl', ['$scope', '$rootScope', 'AddressFactory'
             console.log($rootScope.enquiry_made);
 
         });
-        $rootScope.$on('clearEnquiry', function () {
-            
+        
+        $rootScope.$on('emptyCart', function () {
+            ngCart.empty();
             $cookies.put('enquiry_made', JSON.stringify({}));
             $rootScope.$emit('syncEnquiryMade');
-            
-            
-
         });
 
 
@@ -86,15 +80,18 @@ mainApp.controller('orderEnquiryCtrl', ['$scope', '$rootScope', 'AddressFactory'
         }
         $scope.enquiry_made = $rootScope.enquiry_made;
         
-        $scope.placeEnquiry = function() {
-            $rootScope.$emit('syncEnquiryMade');
-            var items = Object.keys($rootScope.enquiry_made.items);
-            var enquiry = $rootScope.enquiry_made;
-            enquiry.items = items;
-            var promise = EnquiryFactory.placeEnquiry(enquiry).$promise;
+        
+        
+        $scope.checkout = function() {
+            var order = {};
+            order.address_id = $scope.enquiry_made.address_id;
+            order.pickup_date = $scope.enquiry_made.pickup_date;
+            order.pickup_time = $scope.enquiry_made.pickup_time;
+            order.items = ngCart.getItems();
+            var promise = OrderFactory.placeOrder(order).$promise;
             promise.then(function(result) {
                 swal("Order placed!","Our team will contact you soon!");
-                $rootScope.$emit('clearEnquiry');
+                $rootScope.$emit('emptyCart');
                 $location.path("/");
                 
             })

@@ -194,7 +194,7 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
                     pickup_time:$scope.enquiry.pickup_time
                 
                 });
-                $location.path("/enquiry-preview");
+                $location.path("/order-preview");
 
             } else {
                 $scope.errorMessage = "Please select an address";

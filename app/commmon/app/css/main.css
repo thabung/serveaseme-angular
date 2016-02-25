@@ -29,5 +29,8 @@
     -webkit-box-shadow: 0 0 1px black;
     box-shadow: 0 0 1px black;
 }
+.cart_added {
+    color:green;
+}
 
 
