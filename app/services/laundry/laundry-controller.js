@@ -10,7 +10,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         
 //$scope.clothPric  = {};        
 mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
-    '$routeParams',"$rootScope","$location","ngCart", function ($scope, CategoryFactory, $routeParams,$rootScope,$location,ngCart) {
+    '$routeParams',"$rootScope","$location","ngCart","ngCartItem", function ($scope, CategoryFactory, $routeParams,$rootScope,$location,ngCart,ngCartItem) {
         $scope.laundryServiceTypes = {};
         $scope.laundryServiceNames = {};
         $scope.now_showing = "service_types";
@@ -52,6 +52,14 @@ mainApp.controller('laundryCtrl', ['$scope', 'CategoryFactory',
 //                var temp = value.split(":");
                 $rootScope.$emit('addToCartEnquiry', {id:value,name:$scope.laundryServiceNames[value]});
             });
+            
+            $location.path("/address");
+        };
+        $scope.showAddressDetails = function() {
+            if(ngCart.getTotalItems()==0) {
+                $scope.errorMessage = "No items added!";
+                return false;
+            }
             
             $location.path("/address");
         };

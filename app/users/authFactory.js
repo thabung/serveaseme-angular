@@ -1,5 +1,5 @@
 'use strict';
-mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function ($resource, $rootScope, $cookies) {
+mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies','$location', function ($resource, $rootScope, $cookies,$location) {
         var user;
         return{
             setAuthorizationHeader: function () {
@@ -42,7 +42,9 @@ mainApp.factory('AuthFactory', ['$resource', '$rootScope', '$cookies', function 
                 $rootScope.user = undefined;
                 this.resetAuthorizationHeader();
                 $cookies.remove("user");
+                $rootScope.$emit('emptyCart');
                 console.log("LOGGED OUT");
+//                $location("/");
                 
             },
             isLoggedIn: function () {
