@@ -40,7 +40,7 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
         };
 
         $scope.getAddressList = function () {
-            console.log(HEADERS);
+//            console.log(HEADERS);
             var promise = AddressFactory.getAddressByUser({id: $rootScope.user.id}).$promise;
             promise.then(function (result) {
                 $scope.addressList = result;
@@ -184,7 +184,11 @@ mainApp.controller('addressCtrl', ['$scope', 'AddressFactory', '$routeParams', '
             $scope.mode="create_address";
         }
 //        console.log(items);
+
         $scope.enquiry = {};
+        if ($rootScope.enquiry_made) {
+            $scope.enquiry = $rootScope.enquiry_made;
+        }
         $scope.enquiry.updated_by = $rootScope.user.id;
         $scope.placeEnquiry = function () {
             if ($scope.enquiry.address_id) {

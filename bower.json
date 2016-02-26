@@ -24,6 +24,7 @@
     "angular-route": "~1.4.9",
     "angular-resource": "1.4.x",
     "angular-cookies": "~1.4.9",
-    "ngCart": "ngcart#~1.0.0"
+    "ngCart": "ngcart#~1.0.0",
+    "angular-sanitize": "~1.5.0"
   }
 }

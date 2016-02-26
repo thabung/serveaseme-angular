@@ -1,8 +1,8 @@
 mainApp.config(['$routeProvider', function ($routeProvider) {
 
-        $routeProvider.when('/user/edit/:id',
+        $routeProvider.when('/my-info',
                 {
-                    templateUrl: 'app/users/edit-partial.html',
+                    templateUrl: 'app/users/my-info.html',
                     controller: 'userCtrl'
                 }
         );
@@ -19,12 +19,14 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                     controller: 'userCtrl'
                 }
         );
+
+        
     }]);
-mainApp.controller('userCtrl', ['$scope', 'UserFactory', '$routeParams', 'OrderFactory', function ($scope, UserFactory, $routeParams, OrderFactory) {
+mainApp.controller('userCtrl', ['$scope', 'UserFactory', '$routeParams', 'OrderFactory','$location', function ($scope, UserFactory, $routeParams, OrderFactory,$location) {
         $scope.user = {};
         $scope.get = function () {
             $scope.errorMessage = "";
-            var promise = UserFactory.get({id: $routeParams.id}).$promise;
+            var promise = UserFactory.getMe().$promise;
             promise.then(function (result) {
                 if (result.error) {
                     $scope.errorMessage = result.error;
@@ -82,8 +84,16 @@ mainApp.controller('userCtrl', ['$scope', 'UserFactory', '$routeParams', 'OrderF
 
             });
         };
+        
+        
+        
         $scope.$watch('$viewContentLoaded', function () {
-            $scope.get();
+
+            if ($location.path() == '/my-info') {
+                $scope.get();
+
+            }
+
         });
 
     }

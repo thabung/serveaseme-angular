@@ -6,11 +6,14 @@ var APP_URL = {
     signup: API_ENGINE_URL + "users",
     update: API_ENGINE_URL + "users",
     delete: API_ENGINE_URL + "users",
+    get_me: API_ENGINE_URL + "me",
     
     order_item: API_ENGINE_URL + "orders",
     order_read: API_ENGINE_URL + "orders/:id",
     order_update: API_ENGINE_URL + "orders/:id",
     order_delete: API_ENGINE_URL + "orders/:id",
+    order_history: API_ENGINE_URL + "orders-history",
+    
 //    place_enquiry: API_ENGINE_URL + "enquiry",
     
     add_item:API_ENGINE_URL + "items",

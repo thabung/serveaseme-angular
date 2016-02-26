@@ -5,5 +5,6 @@ mainApp.factory('OrderFactory', ['$resource',
                 {
                     get: {method: 'GET', headers: HEADERS, params: {category_id: '@category_id', id: '@id'}, isArray: true},
                     placeOrder: {method: 'POST', params: {}},
+                    getOrderHistory: {method: 'GET',  params: {},url:APP_URL.order_history,isArray:true}
                 });
     }]);

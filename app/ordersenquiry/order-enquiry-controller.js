@@ -9,6 +9,13 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                 }
         );
 
+        $routeProvider.when('/orders',
+                {
+                    templateUrl: 'app/ordersenquiry/order-history.html',
+                    controller: 'orderItemCtrl'
+                }
+        );
+
 
 
     }]);
@@ -38,7 +45,14 @@ mainApp.controller('orderItemCtrl', ['$scope', '$rootScope', 'AddressFactory','O
         $scope.removeFromEnquiryCart = function() {};
 
         $rootScope.$on('addEnquiryDetails', function (idk, item) {
-            var enquiry = JSON.parse($cookies.get('enquiry_made'));
+            var x =$cookies.get('enquiry_made');
+            if ($cookies.get('enquiry_made')!=null) {
+                var enquiry = JSON.parse($cookies.get('enquiry_made'));
+
+            } else {
+                var enquiry = {};
+
+            }
             angular.forEach(item, function (value, key) {
                 enquiry[key] = value;
             });
@@ -96,6 +110,46 @@ mainApp.controller('orderItemCtrl', ['$scope', '$rootScope', 'AddressFactory','O
                 
             })
         };
+        $scope.orderHistory = {};
+        $scope.oneAtATime = true;
+        $scope.status = {
+            isFirstOpen: true,
+            isFirstDisabled: false
+        };
+        
+        $scope.getTotal = function(quantity,amt) {
+            return quantity*amt;
+        };
+        $scope.statusClass = {new:"label label-info",processing:"label btn-primary btn-xs",completed:"label label-success"}
+        $scope.getOrderHistory = function() {
+            var promise = OrderFactory.getOrderHistory().$promise;
+            
+            //orderhistory
+            //  orderhistory[]  
+            //  orderhistory
+            //  orderhistory
+            
+            promise.then(function(result) {
+                angular.forEach(result,function(val) {
+                    if ($scope.orderHistory[val.order_id]) {
+                        $scope.orderHistory[val.order_id].items.push(val);
+                        $scope.orderHistory[val.order_id].total_amnt = $scope.getTotal(val.quantity,val.price) + $scope.orderHistory[val.order_id].total_amnt;
+                    } else {
+                        
+                        $scope.orderHistory[val.order_id] = {total_amnt:$scope.getTotal(val.quantity,val.price),items:[val],order_date:val.order_date,status:val.status};
+//                        $scope.orderHistory[val.order_id] = {};
+//                        $scope.orderHistory[val.order_id]["items"] = [val];
+//                        $scope.orderHistory[val.order_id]["total"] = [val];
+                    }
+                });
+                console.log($scope.orderHistory);
+                
+                
+            })
+        };
+        if ($location.path() == '/orders') {
+            $scope.getOrderHistory();
+        }
 
 
     }]);
