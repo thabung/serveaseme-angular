@@ -1,5 +1,5 @@
 'use strict';
-mainApp.factory('ProductFactory', ['$resource',
+mainApp.factory('ProductFactoryzzz', ['$resource',
     function ($resource) {
         return $resource(API_ENGINE_URL + 'items/:itemId', {}, {
             get: {method: 'GET', headers:HEADERS,params: {itemId: '@itemId'}},

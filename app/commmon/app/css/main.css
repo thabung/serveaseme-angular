@@ -34,3 +34,14 @@
 }
 
 
+ul.cat_node {
+    list-style: circle;
+}
+li.cat_node {
+    margin-left: 20px;
+}
+.panel.ng-isolate-scope.panel-default.panel-open {
+    border:none !important;
+}
+
+

@@ -78,7 +78,7 @@ mainApp.controller('orderItemCtrl', ['$scope', '$rootScope', 'AddressFactory','O
         });
 
 
-
+        if ($rootScope.enquiry_made)
         if ($rootScope.enquiry_made.address_id) {
             var promise = AddressFactory.get({id: $rootScope.enquiry_made.address_id}).$promise;
             promise.then(function (result) {
@@ -120,7 +120,7 @@ mainApp.controller('orderItemCtrl', ['$scope', '$rootScope', 'AddressFactory','O
         $scope.getTotal = function(quantity,amt) {
             return quantity*amt;
         };
-        $scope.statusClass = {new:"label label-info",processing:"label btn-primary btn-xs",completed:"label label-success"}
+        $scope.statusClass = STATUS_COLORS;
         $scope.getOrderHistory = function() {
             var promise = OrderFactory.getOrderHistory().$promise;
             
@@ -137,9 +137,6 @@ mainApp.controller('orderItemCtrl', ['$scope', '$rootScope', 'AddressFactory','O
                     } else {
                         
                         $scope.orderHistory[val.order_id] = {total_amnt:$scope.getTotal(val.quantity,val.price),items:[val],order_date:val.order_date,status:val.status};
-//                        $scope.orderHistory[val.order_id] = {};
-//                        $scope.orderHistory[val.order_id]["items"] = [val];
-//                        $scope.orderHistory[val.order_id]["total"] = [val];
                     }
                 });
                 console.log($scope.orderHistory);

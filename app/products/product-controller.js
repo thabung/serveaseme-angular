@@ -47,13 +47,13 @@ mainApp.controller('productController', ['$scope', 'CategoryFactory',
 
 
 
-mainApp.controller('laundryCtrl', ['$scope', '$rootScope', 'ProductFactory', 'AddressFactory',
-    '$routeParams', '$location', function ($scope, $rootScope, ProductFactory, AddressFactory, $routeParams, $location) {
+mainApp.controller('laundryCtrl', ['$scope', '$rootScope', 'ItemFactory', 'AddressFactory',
+    '$routeParams', '$location', function ($scope, $rootScope, ItemFactory, AddressFactory, $routeParams, $location) {
         $scope.order = {};
         $scope.order.service_type = [];
 
 
-        var promise = ProductFactory.getProductsByPath({path: "Laundry/"}).$promise;
+        var promise = ItemFactory.getProductsByPath({path: "Laundry/"}).$promise;
         promise.then(function (productList) {
             console.log(productList);
             $scope.itemList = productList;

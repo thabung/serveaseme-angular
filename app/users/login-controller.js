@@ -13,7 +13,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
                 }
         );
     }]);
-mainApp.controller('loginCtrl', ['$scope', 'AuthFactory','$location','ProductFactory','$routeParams', function ($scope, Auth, $location,ProductFactory,$routeParams) {
+mainApp.controller('loginCtrl', ['$scope', 'AuthFactory','$location','ItemFactory','$routeParams', function ($scope, Auth, $location,ItemFactory,$routeParams) {
         $scope.user = {};
         $scope.facebookLoginLink = LOGIN_FACEBOOK_LINK;
         $scope.submit = function () {
@@ -31,7 +31,7 @@ mainApp.controller('loginCtrl', ['$scope', 'AuthFactory','$location','ProductFac
             });
         };
         $scope.getCategories = function () {
-            var promise = ProductFactory.getAllCategories().$promise;
+            var promise = ItemFactory.getAllCategories().$promise;
             promise.then(function (productList) {
                 $scope.categoryList = productList;
             });
